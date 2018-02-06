@@ -1,2 +1,6 @@
 Guide for deploying flask app on Ubuntu 14.04
+
+sudo apt-get install apache2
+
+
 https://devops.profitbricks.com/tutorials/deploy-a-flask-application-on-ubuntu-1404/
