@@ -18,6 +18,18 @@ import serial
 #    led.off()
 #    #set gpio to low
 
+def sendUnlock():
+    s = [0,1]
+    testAck = True
+    while testAck == True:
+        ser.write('50100.'.encode('utf-8'))
+        read_serial=ser.readline()
+        s[0] = str(ser.readline())
+        print s[0]
+        if "unlock" in s[0]:
+            testAck = False
+            return True
+        time.sleep(2)
 
 
 if __name__ == "__main__":
@@ -36,17 +48,8 @@ if __name__ == "__main__":
         response = requests.get(queryString)
     
         if response.status_code == 200 and response.text == unlockString:
-
-            s = [0,1]
-            testAck = True
-            while testAck==True:
-                ser.write('unlock'.encode('utf-8'))
-                s[0]=str(ser.readline())
-                print s[0]
-                if "unlock" in s[0]:
-                    testAck = False
-                    break
-                time.sleep(1)
+            print "response from api"
+            sendUnlock()
     
             time.sleep(10)
         else:
