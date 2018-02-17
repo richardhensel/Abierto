@@ -19,15 +19,13 @@ import serial
 #    #set gpio to low
 
 def sendUnlock():
-    s = [0,1]
-    testAck = True
-    while testAck == True:
-        ser.write('50100.'.encode('utf-8'))
-        read_serial=ser.readline()
-        s[0] = str(ser.readline())
-        print s[0]
-        if "unlock" in s[0]:
-            testAck = False
+    while True:
+        #ser.write('.9000.'.encode('utf-8'))
+        ser.write('9000.'.encode('utf-8'))
+        read_serial=str(ser.readline())
+        print read_serial
+        if "2001" in read_serial:
+            #break
             return True
         time.sleep(2)
 
