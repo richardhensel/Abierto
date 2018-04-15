@@ -1,3 +1,5 @@
+#! /bin/python
+
 import time
 import requests
 import serial
@@ -32,7 +34,7 @@ def sendUnlock():
 
 if __name__ == "__main__":
     #led = LED(2)
-    ser = serial.Serial('/dev/ttyACM0',9600)
+    ser = serial.Serial('/dev/ttyUSB0',9600)
 
     run = True
     queryString = "http://128.199.90.5/get/open"

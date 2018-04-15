@@ -2,7 +2,7 @@
 
 // Serial reader variables
 byte index = 0; // Index into array; where to store the character
-const int maxChars = 4;
+const int maxChars = 3;
 int input = 0;
 char strValue[maxChars+1];
 
@@ -16,7 +16,6 @@ void setup()
   Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
   pinMode(LED_BUILTIN, OUTPUT);
   myservo.attach(3);
-  myservo.write(servoPos);
 }
 
 void loop()
@@ -29,19 +28,13 @@ void serialEvent()
   readSerialPacket();
 }
 
-void unlock(){
+void setServo(int posit){
 
   digitalWrite(LED_BUILTIN, HIGH);
 
-  for (servoPos = 0; servoPos <= 180; servoPos += 1) { // goes from 0 degrees to 180 degrees
-    // in steps of 1 degree
-    myservo.write(servoPos);              // tell servo to go to position in variable 'pos'
-    delay(7);                       // waits 15ms for the servo to reach the position
-  }
-  for (servoPos = 180; servoPos >= 0; servoPos -= 1) { // goes from 180 degrees to 0 degrees
-    myservo.write(servoPos);              // tell servo to go to position in variable 'pos'
-    delay(7);                       // waits 15ms for the servo to reach the position
-  }
+
+  myservo.write(posit);              // tell servo to go to position in variable 'pos'
+
 
   digitalWrite(LED_BUILTIN, LOW);
 }
@@ -67,12 +60,15 @@ void readSerialPacket()
         
         String value;
         value = String(value + strValue);
-        if (value == "9000") {
-          Serial.println("2001.");
-          unlock();
-        } else {
-          Serial.println("2000.");
-        }
+
+        int intValue = value.toInt();
+        Serial.println(String(intValue));
+        //if (intValue >= 0 && intValue <= 180) {
+          //Serial.println("2001.");
+          setServo(intValue);
+        //} else {
+         // Serial.println("2000.");
+        //}
    
         clearInput();
       } else {
