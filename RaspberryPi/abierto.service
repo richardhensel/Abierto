@@ -3,10 +3,10 @@ Description=A service that runs the door opener controller on Rasbperry Pi
 After=network.target
 
 [Service]
-User=caterpillar
+User=pi
 ExecStart=/home/pi/GIT/Abierto/RaspberryPi/run.py
 Restart=always
-RestartSec=600
+RestartSec=5
 
 [Install]
 WantedBy=multi-user.target
